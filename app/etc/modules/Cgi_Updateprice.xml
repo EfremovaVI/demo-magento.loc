@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Project: CGI Magento Trainee
+*
+* Update Price massaction
+*
+* @category    Cgi
+* @package     Cgi_Updateprice
+* @author      Evi
+* email:       efremova.vasilina@mail.ru
+*
+-->
+<config>
+    <modules>
+        <Cgi_Updateprice>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Cgi_Updateprice>
+    </modules>
+</config>
