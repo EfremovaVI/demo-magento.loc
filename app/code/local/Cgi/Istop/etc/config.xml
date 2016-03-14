@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Project: CGI Magento Trainee
+*
+* Top Product Widget
+*
+* @category    Cgi
+* @package     Cgi_Istop
+* @author      Evi
+* email:       efremova.vasilina@mail.ru
+*
+-->
+<config>
+    <modules>
+        <Cgi_Istop>
+            <version>0.1.2</version>
+        </Cgi_Istop>
+    </modules>
+    <global>
+        <blocks>
+            <istop>
+                <class>Cgi_Istop_Block</class>
+            </istop>
+        </blocks>
+        <models>
+            <istop>
+                <class>Cgi_Istop_Model</class>
+            </istop>
+        </models>
+        <helpers>
+            <istop>
+                <class>Cgi_Istop_Helper</class>
+            </istop>
+        </helpers>
+        <resources>
+            <istop_setup>
+                <setup>
+                    <module>Cgi_Istop</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </istop_setup>
+        </resources>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <istop>
+                    <file>istop.xml</file>
+                </istop>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <istop>
+                        <type>singleton</type>
+                        <class>istop/observer</class>
+                        <method>addIsTopAttributeToProductGrid</method>
+                    </istop>
+                </observers>
+            </core_block_abstract_to_html_before>
+            <eav_collection_abstract_load_before>
+                <observers>
+                    <istop>
+                        <class>istop/observer</class>
+                        <method>beforeCollectionLoad</method>
+                    </istop>
+                </observers>
+            </eav_collection_abstract_load_before>
+        </events>
+    </adminhtml>
+</config>

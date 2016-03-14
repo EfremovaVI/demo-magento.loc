@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Project: CGI Magento Trainee
+*
+* Top Product Widget
+*
+* @category    Cgi
+* @package     Cgi_Istop
+* @author      Evi
+* email:       efremova.vasilina@mail.ru
+*
+-->
+<widgets>
+    <istop_product type="istop/topproduct" module="istop">
+        <name>Top product</name>
+        <description>Products listed as top</description>
+        <parameters>
+            <widget_name>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Widget Name</label>
+                <description>The block header to the frontend</description>
+                <type>text</type>
+                <value>Top product</value>
+            </widget_name>
+            <count_product>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Count Products</label>
+                <description>Numbers of Products Displayed in the Widget</description>
+                <type>text</type>
+                <value>3</value>
+            </count_product>
+            <template translate="label">
+                <visible>0</visible>
+                <value>istop/widget.phtml</value>
+            </template>
+        </parameters>
+    </istop_product>
+</widgets>
