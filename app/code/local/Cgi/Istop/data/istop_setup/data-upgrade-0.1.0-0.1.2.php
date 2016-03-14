@@ -5,7 +5,7 @@ $installer->startSetup();
 
 $identifier = 'top_product';
 $title = 'Top product';
-$content = '{{widget type="istop/topproduct" widget_name="Top product" count_product="3"}}';
+$content = '{{widget type="istop/topproduct" widget_name="Top product" count_product="3" template="istop/widget.phtml"}}';
 
 Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
@@ -18,11 +18,7 @@ $staticBlock = array(
 );
 
 $block= Mage::getModel('cms/block')->load($staticBlock['identifier']);
-if ($block->getId()) {
-    $block->setContent($staticBlock['content']);
-    $block->setTitle($staticBlock['title']);
-    $block->save();
-} else {
+if (!$block->getId()) {
     Mage::getModel('cms/block')->setData($staticBlock )->save();
 }
 
