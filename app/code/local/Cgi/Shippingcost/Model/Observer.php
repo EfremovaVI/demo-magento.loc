@@ -15,7 +15,8 @@ class Cgi_Shippingcost_Model_Observer
     {
         $paypal_cart = $observer->getPaypalCart();
         if ($paypal_cart && $paypal_cart->getSalesEntity()) {
-            $amount = Mage::helper('shippingcost')->cartShippingCost;
+
+            $amount = Mage::helper('shippingcost')->cartShippingCost; // !!!!!
 
             if ($amount) {
                 $paypal_cart->addItem('Shipping Cost', 1, $amount, 'shippingcost');
@@ -24,8 +25,5 @@ class Cgi_Shippingcost_Model_Observer
 
     }
 
-    public function createSippingCost()
-    {
 
-    }
 }

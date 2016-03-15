@@ -4,7 +4,9 @@ class Cgi_Shippingcost_Model_Creditmemo
 {
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
-        $amount = Mage::helper('shippingcost')->cartShippingCost;
+        $quote = $creditmemo->getOrder();
+        $amount = $quote->getTotalShippingcostAmount();
+
         if ($amount) {
             $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $amount);
             $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $amount);

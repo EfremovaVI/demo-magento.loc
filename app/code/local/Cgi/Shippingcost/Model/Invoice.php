@@ -4,7 +4,8 @@ class Cgi_Shippingcost_Model_Invoice
 {
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
-        $amount = Mage::helper('shippingcost')->cartShippingCost;
+        $quote = $invoice->getOrder();
+        $amount = $quote->getTotalShippingcostAmount();
 
         if ($amount) {
             $invoice->setGrandTotal($invoice->getGrandTotal() + $amount);
@@ -14,3 +15,4 @@ class Cgi_Shippingcost_Model_Invoice
         return $this;
     }
 }
+

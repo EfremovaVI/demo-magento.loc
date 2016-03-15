@@ -11,10 +11,13 @@
  */
 $installer = $this;
 $installer->startSetup();
+
+$installer = new Mage_Eav_Model_Entity_Setup('core_setup');
+
 // Add group in attribute set
 $installer->addAttributeGroup('catalog_product', 'Default', 'Education', 1000);
 
-$attrName = 'additional_shipping_cost';
+$attrName = 'total_shippingcost_amount';
 
 $attr = Mage::getResourceModel('catalog/eav_attribute')
     ->loadByCode('catalog_product', $attrName);

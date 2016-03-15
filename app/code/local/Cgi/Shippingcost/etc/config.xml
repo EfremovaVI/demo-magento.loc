@@ -14,7 +14,7 @@
 <config>
     <modules>
         <Cgi_Shippingcost>
-            <version>0.1.0</version>
+            <version>0.1.2</version>
         </Cgi_Shippingcost>
     </modules>
 
@@ -42,7 +42,6 @@
             <scost_setup>
                 <setup>
                     <module>Cgi_Shippingcost</module>
-                    <class>Mage_Eav_Model_Entity_Setup</class>
                 </setup>
             </scost_setup>
         </resources>
@@ -94,14 +93,6 @@
                     </shippingcost>
                 </observers>
             </paypal_prepare_line_items>
-            <controller_action_predispatch_checkout_cart_add>
-                <observers>
-                    <shippingcost>
-                        <class>shippingcost/observer</class>
-                        <method>createSippingCost</method>
-                    </shippingcost>
-                </observers>
-            </controller_action_predispatch_checkout_cart_add>
         </events>
     </default>
 </config>

@@ -45,7 +45,8 @@ class Cgi_Shippingcost_Model_Quote
             return $this;
         }
 
-        $amount = Mage::helper('shippingcost')->cartShippingCost;
+        $quote = $address->getQuote();
+        $amount = $quote->getData('total_shippingcost_amount');
 
         if ($amount) {
             $this->_addAmount($amount);
@@ -65,7 +66,10 @@ class Cgi_Shippingcost_Model_Quote
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         if (($address->getAddressType() == 'billing')) {
-            $amount = Mage::helper('shippingcost')->cartShippingCost;
+
+            $quote = $address->getQuote();
+            $amount = $quote->getTotalShippingcostAmount();
+
             if ($amount != 0) {
                 $address->addTotal(
                     array(

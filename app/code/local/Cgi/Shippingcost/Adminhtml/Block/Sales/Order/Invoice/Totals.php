@@ -10,7 +10,8 @@ class Cgi_Shippingcost_Adminhtml_Block_Sales_Order_Invoice_Totals
     protected function _initTotals()
     {
         parent::_initTotals();
-        $amount = Mage::helper('shippingcost')->cartShippingCost;
+
+        $amount = $this->getSource()->getTotalShippingcostAmount();
 
         if ($amount) {
             $this->addTotalBefore(new Varien_Object(array(
