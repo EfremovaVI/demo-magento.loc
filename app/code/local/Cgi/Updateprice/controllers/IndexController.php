@@ -11,6 +11,7 @@
  */
 class Cgi_Updateprice_IndexController extends Mage_Adminhtml_Controller_Action
 {
+    const PERCENT = 100;
     /**
      * Update the Prices on the Products Grid
      */
@@ -39,13 +40,13 @@ class Cgi_Updateprice_IndexController extends Mage_Adminhtml_Controller_Action
                         }
                         break;
                     case 'increase_percentage_price':
-                        $model->setPrice($price+($price*$amount/100))->save();
+                        $model->setPrice($price+($price*$amount/self::PERCENT))->save();
                         break;
                     case 'deduct_percentage_price':
-                        if(($price-($price*$amount/100)) < 0){
+                        if(($price-($price*$amount/self::PERCENT)) < 0){
                             $this->_getSession()->addError($this->__('The price cannot be negative'));
                         } else {
-                            $model->setPrice($price-($price*$amount/100))->save();
+                            $model->setPrice($price-($price*$amount/self::PERCENT))->save();
                         }
                         break;
                     case 'increase_price':
