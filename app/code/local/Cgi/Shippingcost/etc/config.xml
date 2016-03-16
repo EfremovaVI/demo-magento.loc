@@ -75,14 +75,7 @@
                 </totals>
             </order_creditmemo>
         </sales>
-    </global>
 
-    <default>
-        <sales>
-            <totals_sort>
-                <shippingcost>15</shippingcost>
-            </totals_sort>
-        </sales>
         <events>
             <paypal_prepare_line_items>
                 <observers>
@@ -94,5 +87,13 @@
                 </observers>
             </paypal_prepare_line_items>
         </events>
+    </global>
+
+    <default>
+        <sales>
+            <totals_sort>
+                <shippingcost>15</shippingcost>
+            </totals_sort>
+        </sales>
     </default>
 </config>
