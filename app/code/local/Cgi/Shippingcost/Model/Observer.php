@@ -11,19 +11,61 @@
  */
 class Cgi_Shippingcost_Model_Observer
 {
-    public function addScreenToPayPal($observer)
+    /***
+     * Change the Shipping Cost Total Quote
+     *
+     * @param Varien_Event_Observer $observer
+     *
+     * @return $this
+     */
+    public function saveQuoteShippingCostAmount(Varien_Event_Observer $observer)
     {
-        $paypal_cart = $observer->getPaypalCart();
-        if ($paypal_cart && $paypal_cart->getSalesEntity()) {
+        $quoteItem = $observer->getEvent()->getQuoteItem();
+        $quote = $quoteItem->getQuote();
 
-            $amount = Mage::helper('shippingcost')->cartShippingCost; // !!!!!
+        $TotalShippingcostAmount = null;
+        foreach ($quote->getAllItems() as $item) {
+            $productData = Mage::getModel('catalog/product')
+                ->load($item->getProductId());
+            $productTotalShippingcostAmount
+                = $productData->getTotalShippingcostAmount();
+            $qty = $quote->getItemByProduct($productData)->getQty();
+            $TotalShippingcostAmount += $productTotalShippingcostAmount * $qty;
+        }
 
-            if ($amount) {
-                $paypal_cart->addItem('Shipping Cost', 1, $amount, 'shippingcost');
-            }
+        if ($TotalShippingcostAmount) {
+            $quoteItem->setData(
+                'total_shippingcost_amount', $TotalShippingcostAmount
+            );
+            $quote->setData(
+                'total_shippingcost_amount', $TotalShippingcostAmount
+            );
+            $TotalShippingcostAmount = null;
         }
 
     }
 
+    /***
+     * Change the Shipping Cost Total Order
+     *
+     * @param Varien_Event_Observer $observer
+     *
+     * @return $this
+     */
+    public function saveOrderShippingCostAmount(Varien_Event_Observer $observer)
+    {
+        $order = $observer->getEvent()->getOrder();
 
+        $quoteId = $order->getQuoteId();
+        $itemQuote = Mage::getModel('sales/quote')->load($quoteId);
+
+        $TotalShippingcostAmount = $itemQuote->getTotalShippingcostAmount();
+
+        if ($TotalShippingcostAmount) {
+            $order->setData(
+                'total_shippingcost_amount', $TotalShippingcostAmount
+            );
+        }
+
+    }
 }

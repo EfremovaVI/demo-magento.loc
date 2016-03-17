@@ -12,43 +12,26 @@
 class Cgi_Shippingcost_Model_Quote
     extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
-
-    /**
-     * Cgi_Shippingcost_Model_Quote constructor.
-     */
-    public function __construct()
+    public function _construct()
     {
-        $this->setCode('shippingcost');
+        $this->setCode('total_shippingcost_amount');
     }
 
-    /**
-     * Get label
-     *
-     * @return string
-     */
     public function getLabel()
     {
-        return 'Shipping Cost';
+        return 'Total Shipping Cost';
     }
 
-    /**
-     * Collect totals information about insurance
-     *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     *
-     * @return $this|Mage_Sales_Model_Quote_Address_Total_Abstract
-     */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         parent::collect($address);
         if (($address->getAddressType() == 'billing')) {
             return $this;
         }
-
         $quote = $address->getQuote();
         $amount = $quote->getData('total_shippingcost_amount');
 
-        if ($amount) {
+        if (is_numeric($amount) && $amount != 0) {
             $this->_addAmount($amount);
             $this->_addBaseAmount($amount);
         }
@@ -56,21 +39,14 @@ class Cgi_Shippingcost_Model_Quote
         return $this;
     }
 
-    /**
-     * Add giftcard totals information to address object
-     *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     *
-     * @return $this|array
-     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         if (($address->getAddressType() == 'billing')) {
 
             $quote = $address->getQuote();
-            $amount = $quote->getTotalShippingcostAmount();
+            $amount = $quote->getData('total_shippingcost_amount');
 
-            if ($amount != 0) {
+            if (is_numeric($amount) && $amount != 0) {
                 $address->addTotal(
                     array(
                         'code'  => $this->getCode(),

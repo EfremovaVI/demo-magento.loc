@@ -16,6 +16,9 @@
         <Cgi_Shippingcost>
             <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Mage_Sales />
+            </depends>
         </Cgi_Shippingcost>
     </modules>
 </config>

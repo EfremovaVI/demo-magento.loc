@@ -1,5 +1,15 @@
 <?php
-class Cgi_Shippingcost_Adminhtml_Block_Sales_Order_Creditmemo_Totals
+/**
+ * Project: CGI Magento Trainee
+ *
+ * Additional shipping cost
+ *
+ * @category    Cgi
+ * @package     Cgi_Shippingcost
+ * @author      Evi
+ * email:       efremova.vasilina@mail.ru
+ */
+class Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Creditmemo_Totals
     extends Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals
 {
     /**
@@ -11,14 +21,14 @@ class Cgi_Shippingcost_Adminhtml_Block_Sales_Order_Creditmemo_Totals
     {
         parent::_initTotals();
 
-        $amount = $this->getSource()->getTotalShippingcostAmount();
+        $amount = $this->getOrder()->getTotalShippingcostAmount();
 
         if ($amount) {
             $this->addTotalBefore(new Varien_Object(array(
-                'code'      => 'shippingcost',
+                'code'      => 'total_shippingcost_amount',
                 'value'     => $amount,
                 'base_value'=> $amount,
-                'label'     => 'Shipping Cost',
+                'label'     => Mage::helper('shippingcost')->__('Total Shipping Cost'),
             ), array('shipping', 'tax')));
         }
 

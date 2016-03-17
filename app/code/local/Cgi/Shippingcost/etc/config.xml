@@ -20,13 +20,21 @@
 
     <global>
         <blocks>
+            <shippingcost>
+                <class>Cgi_Shippingcost_Block</class>
+            </shippingcost>
             <adminhtml>
                 <rewrite>
-                    <sales_order_totals>Cgi_Shippingcost_Adminhtml_Block_Sales_Order_Totals</sales_order_totals>
-                    <sales_order_invoice_totals>Cgi_Shippingcost_Adminhtml_Block_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
-                    <sales_order_creditmemo_totals>Cgi_Shippingcost_Adminhtml_Block_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
+                    <sales_order_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+                    <sales_order_invoice_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
                 </rewrite>
             </adminhtml>
+            <shippingcost>
+                <rewrite>
+                    <order_totals>Cgi_Shippingcost_Block_Order_Totals</order_totals>
+                </rewrite>
+            </shippingcost>
         </blocks>
         <models>
             <shippingcost>
@@ -48,11 +56,16 @@
 
         <sales>
             <quote>
+                <item>
+                    <product_attributes>
+                        <total_shippingcost_amount />
+                    </product_attributes>
+                </item>
                 <totals>
                     <shippingcost>
                         <class>shippingcost/quote</class>
-                        <after>subtotal</after>
-                        <before>tax</before>
+                        <after>tax</after>
+                        <before>grand_total</before>
                     </shippingcost>
                 </totals>
             </quote>
@@ -60,8 +73,8 @@
                 <totals>
                     <shippingcost>
                         <class>shippingcost/invoice</class>
-                        <after>subtotal</after>
-                        <before>tax</before>
+                        <after>tax</after>
+                        <before>grand_total</before>
                     </shippingcost>
                 </totals>
             </order_invoice>
@@ -69,31 +82,58 @@
                 <totals>
                     <shippingcost>
                         <class>shippingcost/creditmemo</class>
-                        <after>subtotal</after>
-                        <before>tax</before>
+                        <after>tax</after>
+                        <before>grand_total</before>
                     </shippingcost>
                 </totals>
             </order_creditmemo>
         </sales>
 
+        <fieldsets>
+            <sales_convert_quote_item>
+                <shippingcost>
+                    <to_order_item>*</to_order_item>
+                </shippingcost>
+            </sales_convert_quote_item>
+            <sales_convert_order_item>
+                <shippingcost>
+                    <to_quote_item>*</to_quote_item>
+                </shippingcost>
+            </sales_convert_order_item>
+            <sales_convert_quote>
+                <shippingcost>
+                    <to_order>*</to_order>
+                </shippingcost>
+            </sales_convert_quote>
+            <sales_convert_order>
+                <shippingcost>
+                    <to_quote>*</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </shippingcost>
+            </sales_convert_order>
+        </fieldsets>
+
         <events>
-            <paypal_prepare_line_items>
+            <sales_quote_item_set_product>
                 <observers>
                     <shippingcost>
-                        <type>singleton</type>
                         <class>shippingcost/observer</class>
-                        <method>addScreenToPayPal</method>
+                        <method>saveQuoteShippingCostAmount</method>
                     </shippingcost>
                 </observers>
-            </paypal_prepare_line_items>
+            </sales_quote_item_set_product>
+
+            <sales_order_place_after>
+                <observers>
+                    <delivery_date_observer>
+                        <type>singleton</type>
+                        <class>shippingcost/observer</class>
+                        <method>saveOrderShippingCostAmount</method>
+                    </delivery_date_observer>
+                </observers>
+            </sales_order_place_after>
         </events>
     </global>
-
-    <default>
-        <sales>
-            <totals_sort>
-                <shippingcost>15</shippingcost>
-            </totals_sort>
-        </sales>
-    </default>
 </config>

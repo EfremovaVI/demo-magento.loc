@@ -40,7 +40,7 @@ if (!$attr->getId()) {
         'comparable'                => 0,
         'unique'                    => false,
         'user_defined'              => false,
-        'default'                   => 0,
+        'default'                   => null,
         'is_user_defined'           => false,
         'used_in_product_listing'   => true
     ));
