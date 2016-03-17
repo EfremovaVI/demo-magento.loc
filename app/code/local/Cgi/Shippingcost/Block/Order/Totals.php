@@ -9,7 +9,7 @@
  * @author      Evi
  * email:       efremova.vasilina@mail.ru
  */
-class Cgi_Shippingcost_Block_Sales_Order_Totals
+class Cgi_Shippingcost_Block_Order_Totals
     extends Mage_Sales_Block_Order_Totals
 {
     /**
