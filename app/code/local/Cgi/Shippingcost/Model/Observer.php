@@ -20,8 +20,7 @@ class Cgi_Shippingcost_Model_Observer
      */
     public function saveQuoteShippingCostAmount(Varien_Event_Observer $observer)
     {
-        $quoteItem = $observer->getEvent()->getQuoteItem();
-        $quote = $quoteItem->getQuote();
+        $quote = $observer->getEvent()->getQuoteItem()->getQuote();
 
         $TotalShippingcostAmount = null;
         foreach ($quote->getAllItems() as $item) {
@@ -34,9 +33,6 @@ class Cgi_Shippingcost_Model_Observer
         }
 
         if ($TotalShippingcostAmount) {
-            $quoteItem->setData(
-                'total_shippingcost_amount', $TotalShippingcostAmount
-            );
             $quote->setData(
                 'total_shippingcost_amount', $TotalShippingcostAmount
             );

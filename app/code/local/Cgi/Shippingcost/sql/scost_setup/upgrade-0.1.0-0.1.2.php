@@ -20,7 +20,6 @@ $attribute_code = 'total_shippingcost_amount';
 $entities = array(
     'quote',
     'order',
-    'order_item'
 );
 $options = array(
     'type' => Varien_Db_Ddl_Table::TYPE_DECIMAL,
