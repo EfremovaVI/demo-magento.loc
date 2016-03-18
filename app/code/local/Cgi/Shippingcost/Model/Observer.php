@@ -15,6 +15,7 @@ class Cgi_Shippingcost_Model_Observer
      * Change the Shipping Cost Total Quote
      *
      * @param Varien_Event_Observer $observer
+     * @event sales_quote_item_set_product
      *
      * @return $this
      */
@@ -22,22 +23,15 @@ class Cgi_Shippingcost_Model_Observer
     {
         $quote = $observer->getEvent()->getQuoteItem()->getQuote();
 
-        $TotalShippingcostAmount = null;
-        foreach ($quote->getAllItems() as $item) {
-            $productData = Mage::getModel('catalog/product')
-                ->load($item->getProductId());
-            $productTotalShippingcostAmount
-                = $productData->getTotalShippingcostAmount();
-            $qty = $quote->getItemByProduct($productData)->getQty();
-            $TotalShippingcostAmount += $productTotalShippingcostAmount * $qty;
-        }
+        $totalShippingcostAmount = Mage::getModel('shippingcost/quote');
+        $amount = $totalShippingcostAmount->getTotalShippingcostAmount(
+            $quote->getAllItems()
+        );
 
-        if ($TotalShippingcostAmount) {
+        if ($amount) {
             $quote->setData(
-                'total_shippingcost_amount', $TotalShippingcostAmount
+                'total_shippingcost_amount', $amount
             );
-            $TotalShippingcostAmount = null;
         }
-
     }
 }

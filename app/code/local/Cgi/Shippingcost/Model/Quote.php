@@ -17,11 +17,20 @@ class Cgi_Shippingcost_Model_Quote
         $this->setCode('total_shippingcost_amount');
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         return 'Total Shipping Cost';
     }
 
+    /**
+     * Collect totals process.
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         parent::collect($address);
@@ -39,6 +48,12 @@ class Cgi_Shippingcost_Model_Quote
         return $this;
     }
 
+    /**
+     * Fetch (Retrieve data as array)
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return array
+     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         if (($address->getAddressType() == 'billing')) {
@@ -58,5 +73,24 @@ class Cgi_Shippingcost_Model_Quote
         }
 
         return $this;
+    }
+
+    public function getTotalShippingcostAmount(array $quoteItems)
+    {
+        $totalShippingcostAmount = null;
+        foreach ($quoteItems as $item) {
+            $productData = Mage::getModel('catalog/product')
+                ->load($item->getProductId());
+            $productTotalShippingcostAmount
+                = $productData->getTotalShippingcostAmount();
+
+            $qty = 1;
+            if ($item->getProductId() == $productData->getId()){
+                $qty = $item->getQty();
+            }
+
+            $totalShippingcostAmount += $productTotalShippingcostAmount * $qty;
+        }
+        return $totalShippingcostAmount;
     }
 }
