@@ -30,7 +30,6 @@ class Cgi_Istop_Block_Topproduct extends Mage_Core_Block_Template
             ->addFieldToFilter('is_top', 1)
             ->addFieldToFilter('status', 1)
             ->addStoreFilter($storeId)
-            ->clear()
             ->setPageSize($this->getData('count_product'))
             ->load();
         $collection->getSelect()->order('rand()');

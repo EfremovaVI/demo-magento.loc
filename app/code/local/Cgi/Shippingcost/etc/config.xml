@@ -90,16 +90,6 @@
         </sales>
 
         <fieldsets>
-            <sales_convert_quote_item>
-                <shippingcost>
-                    <to_order_item>*</to_order_item>
-                </shippingcost>
-            </sales_convert_quote_item>
-            <sales_convert_order_item>
-                <shippingcost>
-                    <to_quote_item>*</to_quote_item>
-                </shippingcost>
-            </sales_convert_order_item>
             <sales_convert_quote>
                 <shippingcost>
                     <to_order>*</to_order>
