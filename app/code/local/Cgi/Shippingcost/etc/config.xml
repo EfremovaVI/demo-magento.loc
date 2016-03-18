@@ -30,11 +30,11 @@
                     <sales_order_creditmemo_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
                 </rewrite>
             </adminhtml>
-            <sales>
-                <rewrite>
-                    <order_totals>Cgi_Shippingcost_Block_Order_Totals</order_totals>
-                </rewrite>
-            </sales>
+            <!--<sales>-->
+                <!--<rewrite>-->
+                    <!--<order_totals>Cgi_Shippingcost_Block_Order_Totals</order_totals>-->
+                <!--</rewrite>-->
+            <!--</sales>-->
         </blocks>
         <models>
             <shippingcost>
@@ -64,8 +64,6 @@
                 <totals>
                     <shippingcost>
                         <class>shippingcost/quote</class>
-                        <after>tax</after>
-                        <before>grand_total</before>
                     </shippingcost>
                 </totals>
             </quote>
@@ -73,8 +71,6 @@
                 <totals>
                     <shippingcost>
                         <class>shippingcost/invoice</class>
-                        <after>tax</after>
-                        <before>grand_total</before>
                     </shippingcost>
                 </totals>
             </order_invoice>
@@ -82,8 +78,6 @@
                 <totals>
                     <shippingcost>
                         <class>shippingcost/creditmemo</class>
-                        <after>tax</after>
-                        <before>grand_total</before>
                     </shippingcost>
                 </totals>
             </order_creditmemo>
@@ -91,17 +85,17 @@
 
         <fieldsets>
             <sales_convert_quote>
-                <shippingcost>
+                <total_shippingcost_amount>
                     <to_order>*</to_order>
-                </shippingcost>
+                </total_shippingcost_amount>
             </sales_convert_quote>
             <sales_convert_order>
-                <shippingcost>
+                <total_shippingcost_amount>
                     <to_quote>*</to_quote>
                     <to_invoice>*</to_invoice>
                     <to_shipment>*</to_shipment>
                     <to_cm>*</to_cm>
-                </shippingcost>
+                </total_shippingcost_amount>
             </sales_convert_order>
         </fieldsets>
 
@@ -114,16 +108,6 @@
                     </shippingcost>
                 </observers>
             </sales_quote_item_set_product>
-
-            <sales_order_place_after>
-                <observers>
-                    <delivery_date_observer>
-                        <type>singleton</type>
-                        <class>shippingcost/observer</class>
-                        <method>saveOrderShippingCostAmount</method>
-                    </delivery_date_observer>
-                </observers>
-            </sales_order_place_after>
         </events>
     </global>
 </config>

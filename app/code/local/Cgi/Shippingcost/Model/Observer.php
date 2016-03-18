@@ -40,28 +40,4 @@ class Cgi_Shippingcost_Model_Observer
         }
 
     }
-
-    /***
-     * Change the Shipping Cost Total Order
-     *
-     * @param Varien_Event_Observer $observer
-     *
-     * @return $this
-     */
-    public function saveOrderShippingCostAmount(Varien_Event_Observer $observer)
-    {
-        $order = $observer->getEvent()->getOrder();
-
-        $quoteId = $order->getQuoteId();
-        $itemQuote = Mage::getModel('sales/quote')->load($quoteId);
-
-        $TotalShippingcostAmount = $itemQuote->getTotalShippingcostAmount();
-
-        if ($TotalShippingcostAmount) {
-            $order->setData(
-                'total_shippingcost_amount', $TotalShippingcostAmount
-            );
-        }
-
-    }
 }
