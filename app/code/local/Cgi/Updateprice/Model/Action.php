@@ -40,9 +40,8 @@ class Cgi_Updateprice_Model_Action
                         $newPrice = $price * $amount;
                         break;
                     default:
-                        $this->_getSession()->addError(
-                            $this->__('Performed an illegal action')
-                        );
+                        Mage::getSingleton('core/session')
+                            ->addError('Performed an illegal action');
                 }
                 if($newPrice < 0){
                     Mage::getSingleton('core/session')
