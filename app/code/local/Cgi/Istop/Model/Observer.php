@@ -15,6 +15,7 @@ class Cgi_Istop_Model_Observer
      * Adds column to admin customers grid
      *
      * @param Varien_Event_Observer $observer
+     * @param core_block_abstract_to_html_before
      *
      * @return Cgi_Istop_Model_Observer
      */
@@ -36,6 +37,7 @@ class Cgi_Istop_Model_Observer
 
     /**
      * @param Varien_Event_Observer $observer
+     * @param eav_collection_abstract_load_before
      */
     public function beforeCollectionLoad(Varien_Event_Observer $observer)
     {
