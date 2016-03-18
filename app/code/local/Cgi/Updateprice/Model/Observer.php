@@ -23,12 +23,13 @@ class Cgi_Updateprice_Model_Observer
             if ($block->getParentBlock() instanceof Mage_Adminhtml_Block_Catalog_Product_Grid) {
                 // The first parameter has to be unique, or you'll overwrite the old action.
 
+                $source     = Mage::getModel('updateprice/source');
                 $operations = array(
-                    'add_price'=>'+ n',
-                    'deducted_price'=>'− n',
-                    'increase_percentage_price'=>'+ n%',
-                    'deduct_percentage_price'=>'− n%',
-                    'increase_price'=>'* n');
+                    $source::ADD_PRICE =>'+ n',
+                    $source::DEDUCTED_PRICE =>'− n',
+                    $source::INCREASE_PERCENTAGE_PRICE =>'+ n%',
+                    $source::DEDUCT_PERCENTAGE_PRICE =>'− n%',
+                    $source::INCREASE_PRICE =>'* n');
 
                 $block->addItem('updateprice', array(
                     'label'=> Mage::helper('catalog')->__('Update Price'),

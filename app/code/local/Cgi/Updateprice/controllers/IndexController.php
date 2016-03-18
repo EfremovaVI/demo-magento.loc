@@ -11,7 +11,6 @@
  */
 class Cgi_Updateprice_IndexController extends Mage_Adminhtml_Controller_Action
 {
-    const PERCENT = 100;
     /**
      * Update the Prices on the Products Grid
      */
@@ -21,6 +20,7 @@ class Cgi_Updateprice_IndexController extends Mage_Adminhtml_Controller_Action
         $operations = (string)$this->getRequest()->getParam('operations');
         $amount     = (int)$this->getRequest()->getParam('amount');
         $model      = Mage::getModel('catalog/product');
+        $source     = Mage::getModel('updateprice/source');
 
         try {
             foreach ($productIds as $_product)
@@ -29,27 +29,29 @@ class Cgi_Updateprice_IndexController extends Mage_Adminhtml_Controller_Action
                 $price = $model->getPrice();
 
                 switch($operations){
-                    case 'add_price':
+                    case $source::ADD_PRICE:
                         $model->setPrice($price+$amount)->save();
                         break;
-                    case 'deducted_price':
+                    case $source::DEDUCTED_PRICE:
                         if(($price-$amount) < 0){
-                            $this->_getSession()->addError($this->__('The price cannot be negative'));
+                            $this->_getSession()->addError(
+                                $this->__('The price cannot be negative. Product sku: ' . $model->getSku())
+                            );
                         } else {
                             $model->setPrice($price-$amount)->save();
                         }
                         break;
-                    case 'increase_percentage_price':
-                        $model->setPrice($price+($price*$amount/self::PERCENT))->save();
+                    case $source::INCREASE_PERCENTAGE_PRICE:
+                        $model->setPrice($price+($price*$amount/100))->save();
                         break;
-                    case 'deduct_percentage_price':
+                    case $source::DEDUCT_PERCENTAGE_PRICE:
                         if(($price-($price*$amount/self::PERCENT)) < 0){
                             $this->_getSession()->addError($this->__('The price cannot be negative'));
                         } else {
-                            $model->setPrice($price-($price*$amount/self::PERCENT))->save();
+                            $model->setPrice($price-($price*$amount/100))->save();
                         }
                         break;
-                    case 'increase_price':
+                    case $source::INCREASE_PRICE:
                         $model->setPrice($price*$amount)->save();
                         break;
                     default:
