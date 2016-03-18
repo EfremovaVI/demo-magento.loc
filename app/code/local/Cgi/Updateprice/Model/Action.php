@@ -13,14 +13,15 @@ class Cgi_Updateprice_Model_Action
 {
     public function updatePrice($productIds, $operations, $amount)
     {
-        $model  = Mage::getModel('catalog/product');
         $source = Mage::getModel('updateprice/source');
+        $_productCollection = Mage::getModel('catalog/product')->getCollection()
+            ->addAttributeToSelect('price', 'sku')
+            ->addAttributeToFilter('entity_id', array('in' => $productIds));
 
         try {
-            foreach ($productIds as $_product)
+            foreach ($_productCollection as $_product)
             {
-                $model->load($_product);
-                $price = $model->getPrice();
+                $price = $_product->getPrice();
                 $newPrice = 0;
 
                 switch($operations){
@@ -46,12 +47,12 @@ class Cgi_Updateprice_Model_Action
                 if($newPrice < 0){
                     Mage::getSingleton('core/session')
                         ->addError('The price cannot be negative. Product sku: '
-                            . $model->getSku());
+                            . $_product->getSku());
                 } else {
-                    $model->setPrice($newPrice)->save();
+                    $_product->setPrice($newPrice);
                 }
             }
-            if($model->save()){
+            if($_productCollection->save()){
                 Mage::getSingleton('core/session')
                     ->addSuccess('Total of %d record(s) have been updated.',
                         count($productIds));
