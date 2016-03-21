@@ -12,7 +12,6 @@
 class Cgi_Istop_Block_Topproduct extends Mage_Core_Block_Template
     implements Mage_Widget_Block_Interface
 {
-    public $_collectionTopProducts = array();
     public $_widgetName;
 
     /**
@@ -20,7 +19,7 @@ class Cgi_Istop_Block_Topproduct extends Mage_Core_Block_Template
      *
      * @return string
      */
-    protected function _toHtml()
+    protected function collectionTopProducts()
     {
         $this->_widgetName = $this->getData('widget_name');
 
@@ -34,7 +33,6 @@ class Cgi_Istop_Block_Topproduct extends Mage_Core_Block_Template
             ->load();
         $collection->getSelect()->order('rand()');
 
-        $this->_collectionTopProducts = $collection;
-        return parent::_toHtml();
+        return $collection;
     }
 }
