@@ -9,14 +9,13 @@
  * @author      Evi
  * email:       efremova.vasilina@mail.ru
  */
-class Cgi_Shippingcost_Model_Shippingcost extends Mage_Core_Block_Template
+class Cgi_Shippingcost_Block_Shippingcost extends Mage_Core_Block_Template
 {
     /**
      * @return $this
      */
     public function initTotals()
     {
-
         $amount = $this->getParentBlock()->getSource()
             ->getTotalShippingcostAmount();
 

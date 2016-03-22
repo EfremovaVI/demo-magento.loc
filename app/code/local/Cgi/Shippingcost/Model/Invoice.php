@@ -12,10 +12,6 @@
 class Cgi_Shippingcost_Model_Invoice
     extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
-    public function _construct()
-    {
-        $this->setCode('total_shippingcost_amount');
-    }
 
     /**
      * @return string
@@ -43,6 +39,8 @@ class Cgi_Shippingcost_Model_Invoice
         if (is_numeric($amount) && $amount != 0) {
             $this->_addAmount($amount);
             $this->_addBaseAmount($amount);
+            $address->setGrandTotal($address->getGrandTotal()+$amount);
+            $address->setBaseGrandTotal($address->getBaseGrandTotal()+$amount);
         }
 
         return $this;
@@ -56,7 +54,7 @@ class Cgi_Shippingcost_Model_Invoice
     protected function _addAmount($amount)
     {
         if ($this->_canAddAmountToAddress) {
-            $this->_getAddress()->addTotalAmount($this->getCode(), $amount);
+            $this->_getAddress()->addTotalAmount('total_shippingcost_amount', $amount);
         }
         return $this;
     }
@@ -70,7 +68,7 @@ class Cgi_Shippingcost_Model_Invoice
     {
         if ($this->_canAddAmountToAddress) {
             $this->_getAddress()->addBaseTotalAmount(
-                $this->getCode(), $baseAmount
+                'total_shippingcost_amount', $baseAmount
             );
         }
         return $this;
@@ -91,7 +89,7 @@ class Cgi_Shippingcost_Model_Invoice
             if (is_numeric($amount) && $amount != 0) {
                 $address->addTotal(
                     array(
-                        'code' => $this->getCode(),
+                        'code' => 'total_shippingcost_amount',
                         'title' => $this->getLabel(),
                         'value' => $amount
                     )
