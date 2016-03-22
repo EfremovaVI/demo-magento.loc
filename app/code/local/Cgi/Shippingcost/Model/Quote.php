@@ -75,6 +75,11 @@ class Cgi_Shippingcost_Model_Quote
         return $this;
     }
 
+    /**
+     * @param array $quoteItems
+     *
+     * @return null
+     */
     public function getTotalShippingcostAmount(array $quoteItems)
     {
         $totalShippingcostAmount = null;

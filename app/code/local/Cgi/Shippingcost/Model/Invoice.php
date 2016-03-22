@@ -17,11 +17,19 @@ class Cgi_Shippingcost_Model_Invoice
         $this->setCode('total_shippingcost_amount');
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         return Mage::helper('shippingcost')->__('Total Shipping Cost');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice $address
+     *
+     * @return $this
+     */
     public function collect(Mage_Sales_Model_Order_Invoice $address)
     {
         parent::collect($address);
@@ -40,6 +48,11 @@ class Cgi_Shippingcost_Model_Invoice
         return $this;
     }
 
+    /**
+     * @param $amount
+     *
+     * @return $this
+     */
     protected function _addAmount($amount)
     {
         if ($this->_canAddAmountToAddress) {
@@ -48,6 +61,11 @@ class Cgi_Shippingcost_Model_Invoice
         return $this;
     }
 
+    /**
+     * @param $baseAmount
+     *
+     * @return $this
+     */
     protected function _addBaseAmount($baseAmount)
     {
         if ($this->_canAddAmountToAddress) {
@@ -58,6 +76,11 @@ class Cgi_Shippingcost_Model_Invoice
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice $address
+     *
+     * @return $this
+     */
     public function fetch(Mage_Sales_Model_Order_Invoice $address)
     {
         if (($address->getAddressType() == 'billing')) {

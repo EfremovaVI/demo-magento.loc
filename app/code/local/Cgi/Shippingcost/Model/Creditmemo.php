@@ -17,11 +17,19 @@ class Cgi_Shippingcost_Model_Creditmemo
         $this->setCode('total_shippingcost_amount');
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         return Mage::helper('shippingcost')->__('Total Shipping Cost');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $address
+     *
+     * @return $this
+     */
     public function collect(Mage_Sales_Model_Order_Creditmemo $address)
     {
         parent::collect($address);
@@ -39,6 +47,12 @@ class Cgi_Shippingcost_Model_Creditmemo
 
         return $this;
     }
+
+    /**
+     * @param $amount
+     *
+     * @return $this
+     */
     protected function _addAmount($amount)
     {
         if ($this->_canAddAmountToAddress) {
@@ -47,6 +61,11 @@ class Cgi_Shippingcost_Model_Creditmemo
         return $this;
     }
 
+    /**
+     * @param $baseAmount
+     *
+     * @return $this
+     */
     protected function _addBaseAmount($baseAmount)
     {
         if ($this->_canAddAmountToAddress) {
@@ -55,6 +74,11 @@ class Cgi_Shippingcost_Model_Creditmemo
         return $this;
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $address
+     *
+     * @return $this
+     */
     public function fetch(Mage_Sales_Model_Order_Creditmemo $address)
     {
         if (($address->getAddressType() == 'billing')) {

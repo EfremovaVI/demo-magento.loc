@@ -110,4 +110,14 @@
             </sales_quote_item_set_product>
         </events>
     </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <shippingcost>
+                    <file>shippingcost.xml</file>
+                </shippingcost>
+            </updates>
+        </layout>
+    </frontend>
 </config>
