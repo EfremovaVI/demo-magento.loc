@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 
 <layout>
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="shippingcost/shippingcost" name="shippingcost"/>
+        </reference>
+    </sales_order_view>
+
     <sales_email_order_items>
         <reference name="order_totals">
             <block type="shippingcost/shippingcost" name="shippingcost"/>

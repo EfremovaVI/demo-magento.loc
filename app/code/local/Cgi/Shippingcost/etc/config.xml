@@ -30,11 +30,6 @@
                     <sales_order_creditmemo_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
                 </rewrite>
             </adminhtml>
-            <sales>
-                <rewrite>
-                    <order_totals>Cgi_Shippingcost_Block_Order_Totals</order_totals>
-                </rewrite>
-            </sales>
         </blocks>
         <models>
             <shippingcost>
