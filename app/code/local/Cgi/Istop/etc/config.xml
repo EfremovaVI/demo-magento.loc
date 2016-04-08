@@ -14,7 +14,7 @@
 <config>
     <modules>
         <Cgi_Istop>
-            <version>0.1.2</version>
+            <version>0.1.0</version>
         </Cgi_Istop>
     </modules>
     <global>

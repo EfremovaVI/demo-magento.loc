@@ -25,13 +25,12 @@ class Cgi_Istop_Block_Topproduct extends Mage_Core_Block_Template
         $this->_widgetName = $this->getData('widget_name');
 
         $storeId = (int)Mage::app()->getStore()->getStoreId();
-        $collection = Mage::getModel('catalog/product')
-            ->getCollection()
-            ->addAttributeToSelect('*')
+        $collection = Mage::getModel('catalog/product')->getCollection()
+            ->addAttributeToSelect(array('name', 'url', 'small_image'))
+            ->addFieldToFilter('is_top', 1)
+            ->addFieldToFilter('status', 1)
             ->addStoreFilter($storeId)
-            ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
-            ->addAttributeToFilter('is_top', array('eq' => 1))
-            ->addAttributeToSort('created_at', 'DESC')
+            ->clear()
             ->setPageSize($this->getData('count_product'))
             ->load();
         $collection->getSelect()->order('rand()');

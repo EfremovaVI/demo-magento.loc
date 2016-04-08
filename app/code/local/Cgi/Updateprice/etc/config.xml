@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Project: CGI Magento Trainee
+*
+* Update Price massaction
+*
+* @category    Cgi
+* @package     Cgi_Updateprice
+* @author      Evi
+* email:       efremova.vasilina@mail.ru
+*/
+-->
+<config>
+    <modules>
+        <Cgi_Updateprice>
+            <version>0.1.0</version>
+        </Cgi_Updateprice>
+    </modules>
+    <global>
+        <models>
+            <updateprice>
+                <class>Cgi_Updateprice_Model</class>
+            </updateprice>
+        </models>
+        <helpers>
+            <updateprice>
+                <class>Cgi_Updateprice_Helper</class>
+            </updateprice>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <updateprice after="Mage_Adminhtml">Cgi_Updateprice</updateprice>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <updateprice>
+                        <type>singleton</type>
+                        <class>updateprice/observer</class>
+                        <method>addMassUpdatePrice</method>
+                    </updateprice>
+                </observers>
+            </core_block_abstract_to_html_before>
+        </events>
+    </adminhtml>
+</config>
