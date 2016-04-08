@@ -1,0 +1,54 @@
+<?php
+/**
+ * Project: CGI Magento Trainee
+ *
+ * Top Product Widget
+ *
+ * @category    design
+ * @package     base_default
+ * @author      Evi
+ * email:       efremova.vasilina@mail.ru
+ */
+?>
+<?php
+/**
+ * Product widget template
+ *
+ * @see Cgi_Istop_Block_Topproduct
+ */
+?>
+<?php
+$_collectionProducts = $this->_collectionTopProducts;
+$widgetName = $this->_widgetName;
+?>
+
+<?php if(count($_collectionProducts) != 0): ?>
+<div class="block block-list block-viewed">
+    <div class="block-title">
+        <strong>
+            <span><?php echo $widgetName ?></span>
+        </strong>
+    </div>
+    <div class="block-content">
+        <ol id="recently-viewed-items" class="mini-products-list">
+            <?php foreach ($_collectionProducts as $_product): ?>
+            <li class="item last odd">
+                <a href="<?php echo $_product->getProductUrl() ?>">
+                    <span class="product-image">
+                        <img src="<?php echo Mage::helper('catalog/image')->init(
+                            $_product, 'small_image'
+                        )->resize(50, 50); ?>" width="50" height="50" alt="">
+                    </span>
+                </a>
+                <div class="product-details">
+                    <p class="product-name">
+                        <a href="<?php echo $_product->getProductUrl() ?>">
+                            <?php echo $_product->getName() ?></a>
+                    </p>
+                </div>
+            </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+</div>
+<?php endif; ?>

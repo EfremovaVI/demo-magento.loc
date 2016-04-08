@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="left">
+            <block type="cms/block" name="istop_left">
+                <action method="setBlockId"><block_id>top_product</block_id></action>
+            </block>
+        </reference>
+    </default>
+
+    <page_two_columns_right translate="label">
+        <reference name="right">
+            <block type="cms/block" name="istop_right" before="-">
+                <action method="setBlockId"><block_id>top_product</block_id></action>
+            </block>
+        </reference>
+    </page_two_columns_right>
+</layout>
