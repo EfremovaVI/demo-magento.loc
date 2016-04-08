@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--
+/**
+* Project: CGI Magento Trainee
+*
+* Additional shipping cost
+*
+* @category    Cgi
+* @package     Cgi_Shippingcost
+* @author      Evi
+* email:       efremova.vasilina@mail.ru
+*/
+-->
+<config>
+    <sections>
+        <sales>
+            <groups>
+                <totals_sort>
+                    <fields>
+                        <total_shippingcost_amount translate="label">
+                            <label>Shipping Cost</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </total_shippingcost_amount>
+                    </fields>
+                </totals_sort>
+            </groups>
+        </sales>
+    </sections>
+</config>

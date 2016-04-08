@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<!--
+/**
+* Project: CGI Magento Trainee
+*
+* Additional shipping cost
+*
+* @category    Cgi
+* @package     Cgi_Shippingcost
+* @author      Evi
+* email:       efremova.vasilina@mail.ru
+*/
+-->
+<config>
+    <modules>
+        <Cgi_Shippingcost>
+            <version>0.1.2</version>
+        </Cgi_Shippingcost>
+    </modules>
+
+    <global>
+        <blocks>
+            <shippingcost>
+                <class>Cgi_Shippingcost_Block</class>
+            </shippingcost>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+                    <sales_order_invoice_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Cgi_Shippingcost_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <models>
+            <shippingcost>
+                <class>Cgi_Shippingcost_Model</class>
+            </shippingcost>
+        </models>
+        <helpers>
+            <shippingcost>
+                <class>Cgi_Shippingcost_Helper</class>
+            </shippingcost>
+        </helpers>
+        <resources>
+            <scost_setup>
+                <setup>
+                    <module>Cgi_Shippingcost</module>
+                </setup>
+            </scost_setup>
+        </resources>
+
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <total_shippingcost_amount />
+                    </product_attributes>
+                </item>
+                <totals>
+                    <shippingcost>
+                        <class>shippingcost/quote</class>
+                    </shippingcost>
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <shippingcost>
+                        <class>shippingcost/invoice</class>
+                    </shippingcost>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <shippingcost>
+                        <class>shippingcost/creditmemo</class>
+                    </shippingcost>
+                </totals>
+            </order_creditmemo>
+        </sales>
+
+        <fieldsets>
+            <sales_convert_quote>
+                <total_shippingcost_amount>
+                    <to_order>*</to_order>
+                </total_shippingcost_amount>
+            </sales_convert_quote>
+            <sales_convert_order>
+                <total_shippingcost_amount>
+                    <to_quote>*</to_quote>
+                    <to_invoice>*</to_invoice>
+                    <to_shipment>*</to_shipment>
+                    <to_cm>*</to_cm>
+                </total_shippingcost_amount>
+            </sales_convert_order>
+        </fieldsets>
+
+        <events>
+            <sales_quote_item_set_product>
+                <observers>
+                    <shippingcost>
+                        <class>shippingcost/observer</class>
+                        <method>saveQuoteShippingCostAmount</method>
+                    </shippingcost>
+                </observers>
+            </sales_quote_item_set_product>
+        </events>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <shippingcost>
+                    <file>shippingcost.xml</file>
+                </shippingcost>
+            </updates>
+        </layout>
+    </frontend>
+</config>

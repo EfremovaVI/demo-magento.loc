@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Project: CGI Magento Trainee
+*
+* Additional shipping cost
+*
+* @category    Cgi
+* @package     Cgi_Shippingcost
+* @author      Evi
+* email:       efremova.vasilina@mail.ru
+*/
+-->
+<config>
+    <modules>
+        <Cgi_Shippingcost>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Sales />
+            </depends>
+        </Cgi_Shippingcost>
+    </modules>
+</config>
